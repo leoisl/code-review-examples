@@ -7,9 +7,8 @@ If a colleague showed you this code - what might you point out?
 1. Use an isolated python environment (modified install.sh)
 2. Don't use "-" to separate name in files/modules (prefer "_")
   * It is hard to import them, and not really a convention (https://stackoverflow.com/questions/761519/is-it-ok-to-use-dashes-in-python-files-when-trying-to-import-them/37831973)
-3. input.vcf is tab-delimited, not space-delimited. cluster_vcf_records can't parse input.vcf correctly. You can replace the spaces by tabs using, e.g.
-    python3 convert_spaces_into_tabs.py <input.vcf >input_with_tabs.vcf
-4. Many points in the two python scripts (clean_annotated_vcf.py and clean_annotated_vcf_helper.py)
+3. VCF files are tab-delimited, not space-delimited. cluster_vcf_records can't parse input.vcf correctly. You can replace the spaces by tabs using, e.g. `python3 convert_spaces_into_tabs.py <input.vcf >input_with_tabs.vcf`
+4. Many points in the two python scripts (see `clean_annotated_vcf.py` and `clean_annotated_vcf_helper.py`)
 
 
 Usage:
