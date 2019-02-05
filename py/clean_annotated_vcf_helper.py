@@ -49,7 +49,6 @@ def load_vcf_file(filename):
         I think the gene and geneId can be obtained by intersecting the position of the variants with the intervals in the gff file of NC_000962.3 (can be obtained through wget -O NC_000962.3.gff "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=gff3&id=NC_000962.3")
         Annotation can be obtained by checking if the variant has synonymous codons? To get the codon, I think it is enough the gff file (so that you know the CDS and the ORF), and the genome, to check if the variation induces a synonimous codon or not
         I don't know how to evaluate the annotation impact
-        cDNA describes the position in the cDNA, reference allele and variant allele? I think with the gff only is enough to get this
         protein should be similar to get as we do to the gene    
         '''
         gene="dnaA"
