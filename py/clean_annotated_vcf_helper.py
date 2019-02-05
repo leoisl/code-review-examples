@@ -56,7 +56,6 @@ def load_vcf_file(filename):
         geneId="Rv0001"
         annotation="synonymous_variant"
         annotationImpact="LOW"
-        cDNA="c.21A>T"
         protein="p.Ser7Ser"
 
 
@@ -70,6 +69,6 @@ def load_vcf_file(filename):
             '''
             #going through all alternative variants (I think each line of the output file correspond to a specific variant)
             for alt in vcf_record.ALT:
-                vcf_df.loc[len(vcf_df.index) + 1] = [sampleName, vcf_record.CHROM, vcf_record.POS, vcf_record.REF, alt, gene, geneId, vcf_record.FORMAT['GT'], annotation, annotationImpact, cDNA, protein]
+                vcf_df.loc[len(vcf_df.index) + 1] = [sampleName, vcf_record.CHROM, vcf_record.POS, vcf_record.REF, alt, gene, geneId, vcf_record.FORMAT['GT'], annotation, annotationImpact, "c.%d%s>%s"%(vcf_record.POS+1, vcf_record.REF, alt), protein]
 
     return vcf_df
