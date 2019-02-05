@@ -15,8 +15,7 @@ If a colleague showed you this code - what might you point out?
 Usage:
 1. go to this code repository;
 2. cd py
-3. bash -x install.sh
-  1. If you don't have python3.7, you won't be able to complete the installation successfully. Change it to any python3.6+ that you have - below than this, one of libraries break
+3. bash -x install.sh (If you don't have python3.7, you won't be able to complete the installation successfully. Change it to any python3.6+ that you have - below than this, one of libraries break)
 4. source venv/bin/activate
 5. python3 clean_annotated_vcf.py input_with_tabs.vcf
 6. deactivate
