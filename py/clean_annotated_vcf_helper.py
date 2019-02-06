@@ -44,21 +44,7 @@ def load_vcf_file(filename):
         myGT = x.FORMAT['GT']
         '''
 
-        '''
-        These information does not seem to come from the VCF file, so I am fixing them for the sake of this exercise...
-        I think the gene and geneId can be obtained by intersecting the position of the variants with the intervals in the gff file of NC_000962.3 (can be obtained through wget -O NC_000962.3.gff "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=gff3&id=NC_000962.3")
-        Annotation can be obtained by checking if the variant has synonymous codons? To get the codon, I think it is enough the gff file (so that you know the CDS and the ORF), and the genome, to check if the variation induces a synonimous codon or not
-        I don't know how to evaluate the annotation impact
-        protein should be similar to get as we do to the gene    
-        '''
-        gene="dnaA"
-        geneId="Rv0001"
-        annotation="synonymous_variant"
-        annotationImpact="LOW"
-        protein="p.Ser7Ser"
-
-
-        #Covering all samples - an alternative option is making the first column being able to represent multiple samples
+        #going through all samples
         for sampleName in sampleNames:
             '''
             At each iteration, here we are creating a new DataFrame with all the data seen previously.
@@ -66,8 +52,13 @@ def load_vcf_file(filename):
             anno_list.append([sample_name, vcf_var[0], vcf_var[1], vcf_var[3], vcf_var[4], vcf_anno[3], vcf_anno[4], myGT, vcf_anno[1], vcf_anno[2], vcf_anno[9], vcf_anno[10]])
             vcf_df=pd.DataFrame(anno_list,columns=cols)
             '''
-            #going through all alternative variants (I think each line of the output file correspond to a specific variant)
-            for alt in vcf_record.ALT:
-                vcf_df.loc[len(vcf_df.index) + 1] = [sampleName, vcf_record.CHROM, vcf_record.POS, vcf_record.REF, alt, gene, geneId, vcf_record.FORMAT['GT'], annotation, annotationImpact, "c.%d%s>%s"%(vcf_record.POS+1, vcf_record.REF, alt), protein]
+            #split annotations in the INFO field into a list of list
+            annotationsAsString = vcf_record.INFO['ANN']
+            annotations = [annotationAsString.split("|") for annotationAsString in annotationsAsString.split(",")]
+
+            #go through all annotations and print them
+            for annotation in annotations:
+                vcf_df.loc[len(vcf_df.index) + 1] = [sampleName, vcf_record.CHROM, vcf_record.POS, vcf_record.REF, annotation[0], annotation[3], annotation[4],\
+                                                     vcf_record.FORMAT['GT'], annotation[1], annotation[2], annotation[9], annotation[10]]
 
     return vcf_df
