@@ -14,5 +14,8 @@ options = parser.parse_args()
 #call the function to load the vcf file
 vcf_df = clean_annotated_vcf_helper.load_vcf_file(options.filename)
 
-#print the vcf on the desire output format
-print(vcf_df.to_string(index=False, justify="left"))
+#print the dataframe tab-spaced
+print("\t".join(vcf_df.columns.values))
+nparray = vcf_df.values
+for row in nparray:
+    print("\t".join([str(x) for x in row]))
